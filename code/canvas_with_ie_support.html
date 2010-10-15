@@ -1,0 +1,121 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <script src="modernizr.min.js"></script>
+    <!--[if IE]>
+        <script src="excanvas.js"></script>
+    <![endif]-->
+    <script>
+      if (Modernizr.canvas) {
+        // let's draw some shapes!
+      } else {
+        // no native canvas support available :(
+      }
+    </script>
+    
+    <!--[if lt IE 9]>
+    <script>
+      var e = ("abbr,article,aside,audio,canvas,datalist,details," +
+        "figure,footer,header,hgroup,mark,menu,meter,nav,output," +
+        "progress,section,time,video").split(',');
+      for (var i = 0; i < e.length; i++) {
+        document.createElement(e[i]);
+      }
+    </script>
+    <![endif]-->
+    
+    <title>Drawing App</title>
+    <script>
+      var paint
+      var canvas
+      var context 
+      var clickX = new Array();
+      var clickY = new Array();
+      var clickDrag = new Array();
+      
+      function supports_canvas() {
+        return !!document.createElement('canvas').getContext;
+      }
+
+      $(document).ready(function() {
+        canvas = $("#drawingBoard").get(0);
+        context = canvas.getContext("2d");
+    	  prepareCanvas();
+      });
+      
+      function prepareCanvas() {
+        $('#drawingBoard').mousedown(function(e){
+          var mouseX = e.pageX - this.offsetLeft;
+          var mouseY = e.pageY - this.offsetTop;
+
+          paint = true;
+          addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
+          redraw();
+        });
+        
+        $('#drawingBoard').mousemove(function(e){
+          if(paint){
+            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
+            redraw();
+          }
+        });
+        
+        $('#drawingBoard').mouseup(function(e){
+          paint = false;
+        });
+        
+        $('#drawingBoard').mouseleave(function(e){
+          paint = false;
+        });
+        
+        $("#clearCanvasSimple").click(function(e){
+          clear();
+        });
+        
+        function clear() {
+          context.clearRect(0, 0, 490, 220);          
+          clickX = new Array();
+          clickY = new Array();
+          clickDrag = new Array();
+        }
+        
+        function addClick(x, y, dragging)
+        {
+          clickX.push(x);
+          clickY.push(y);
+          clickDrag.push(dragging);
+        }
+        
+        function redraw(){
+          canvas.width = canvas.width; // Clears the canvas
+
+          context.strokeStyle = "#df4b26";
+          context.lineJoin = "round";
+          context.lineWidth = 5;
+
+          for(var i=0; i < clickX.length; i++)
+          {		›
+            context.beginPath();
+            if(clickDrag[i] && i){
+              context.moveTo(clickX[i-1], clickY[i-1]);
+             }else{
+               context.moveTo(clickX[i]-1, clickY[i]);
+             }
+             context.lineTo(clickX[i], clickY[i]);
+             context.closePath();
+             context.stroke();
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <section>A very simple trim down version of drawing App from 
+      <a href="http://www.williammalone.com/articles/create-html5-canvas-javascript-drawing-app/#demo-simple">Drawing App</a>
+    </section>
+    <canvas id="drawingBoard" width="490" height="220"></canvas>
+    <button id="clearCanvasSimple" type="button">Clear</button>
+  </body>  
+</html>

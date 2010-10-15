@@ -1,0 +1,35 @@
+
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <title>HTML5 Video</title>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        
+        $("#play").click(function(){
+          $("#movie").get(0).play()
+        });
+        
+        $("#pause").click(function(){
+          $("#movie").get(0).pause()          
+        });
+        
+      });
+    </script>
+  </head>
+  <body>
+    <section>
+      <h1>Showing Theora/Vorbis video using HTML5 video tag</h1>
+    </section>
+    <video id="movie" width="320" height="240">
+      <source src="sample_video.ogg"  type='video/ogg; codecs="theora, vorbis"'>
+      Your browser doesn't support video element yet  
+    </video>
+    <div>
+      <button id="play">Play</button>
+      <button id="pause">Pause</button>
+    </div>
+  </body>  
+</html>

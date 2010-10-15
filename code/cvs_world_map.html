@@ -1,0 +1,28 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <script type="text/javascript" src="worldmap.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <script>
+     $(document).ready(function() {
+       WorldMap({
+         id: "worldmap",
+         bgcolor: "#202720",
+         fgcolor: "#303030",
+         bordercolor: "#585d58",
+         borderwidth: 1.5,
+         padding: 10,
+         zoom: "mm,vn,my",
+         detail: {
+            "vn": "#ce3633"
+          }
+      });
+    });
+    </script>
+    <title>World map example</title>
+  </head>
+  <body>
+    <canvas style="margin-top: -12px; background-color: rgb(255, 255, 255);" height="300" width="736" id="worldmap"></canvas>
+  </body>  
+</html>

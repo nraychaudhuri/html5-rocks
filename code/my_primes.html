@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>Web workers in action</title>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <script type="text/javascript"> 
+      function findPrimes() {
+    	  var worker = new Worker('prime.js');
+        worker.onmessage = function (event) {
+          document.getElementById('result').textContent = event.data;
+        };
+      }
+      
+      $(document).ready(function() {
+        $("#go").click(function(e){
+          findPrimes();
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <section>
+      <h1>Calculate prime number using Webworkers</h1> 
+      <button id="go">Go</button>
+       <p>The highest prime number discovered so far is:</p> <output id="result"></output>
+    </section>
+  </body>  
+</html>
